@@ -122,3 +122,6 @@ def new_game():
     play_game(computer_board, player_board)
 
 
+new_game()
+
+
