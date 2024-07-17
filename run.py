@@ -60,3 +60,29 @@ def play_game(computer_board, player_board):
         player_board.print()
         print(f"\n{computer_board.name}'s Board:")
         computer_board.print()
+
+        try:
+            x, y = map(int, input("Enter your guess (row and column separated by space): ").split())
+            result = Board.make_guess(computer_board, x, y)
+            print(result)
+
+            #Check if all ships on the computer's board have been sunk
+            if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
+                print("You sank all the ships! You win!")
+                scores["player"] += 1
+                break
+
+            #Computer makes a random guess
+            x, y = Board.random_point(player_board.size)
+            result = Board.make_guess(player_board, x, y)
+            print(f"Computer guessed ({x}, {y}) and it was a {result}")
+
+            #Check if all ships on the player's board have been sunk
+            if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
+                print("Computer sank all your ships! You lose!")
+                scores["computer"] += 1
+                break
+            
+        except ValueError:
+            print("Invalid input. Please enter row and column numbers separated by space.")
+
