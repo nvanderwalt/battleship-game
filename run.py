@@ -1,10 +1,10 @@
 from random import randint
 
-#Score tracking 
+# Score tracking 
 scores = {"computer": 0, "player": 0} 
 
 
-#The __init__ method sets up a new game board with the specified size, number of ships and initializes it with empty guesses and ship placements.
+# The __init__ method sets up a new game board with the specified size, number of ships and initializes it with empty guesses and ship placements.
 # IMPORTANT - Code was taken from the video of Code Institute-Project 3
 class Board:
     def __init__(self, size, num_ships, name, type): 
@@ -17,10 +17,10 @@ class Board:
         self.ships = []
 
     def print(self):
-        for row in self.board: #This is a for loop that iterates over each row in the board.
-            print(" ".join(row)) #To print this string to the console, effectively printing the row with spaces between the cells for better readability.
+        for row in self.board: # This is a for loop that iterates over each row in the board.
+            print(" ".join(row)) # To print this string to the console, effectively printing the row with spaces between the cells for better readability.
 
-    #Function to generate random points on the board with the parameters
+    # Function to generate random points on the board with the parameters
     def random_point(size):
         return randint(0, size-1), randint(0, size-1) 
 
@@ -28,32 +28,32 @@ class Board:
         return 0 <= x < board.size and 0 <= y < board.size
 
 
-    #Populate_board function is responsible for placing a specified number of ships (board.num_ships) randomly on the game board (board.board) without overlapping.
+    # Populate_board function is responsible for placing a specified number of ships (board.num_ships) randomly on the game board (board.board) without overlapping.
     def populate_board(board):
         for _ in range(board.num_ships):
-        while True:
-            x, y = Board.random_point(board.size)
-            if board.board[x][y] == ".":
-                board.board[x][y] = "S"
-                board.ships.append((x, y))
-                break
+            while True:
+                x, y = Board.random_point(board.size)
+                if board.board[x][y] == ".":
+                    board.board[x][y] = "S"
+                    board.ships.append((x, y))
+                    break
 
-    #Processes a guess on the board at coordinates (x, y).
+    # Processes a guess on the board at coordinates (x, y).
     def make_guess(board, x, y):
-    if not Board.valid_coordinates(x, y, board):
-        return "Invalid coordinates. Try again."
-    if (x, y) in board.guesses:
-        return "You already guessed that. Try again."
-    board.guesses.append((x, y))
-    if board.board[x][y] == "S":
-        board.board[x][y] = "X"
-        return "Hit!"
-    else:
-        board.board[x][y] = "O"
-        return "Miss!"
+        if not Board.valid_coordinates(x, y, board):
+            return "Invalid coordinates. Try again."
+        if (x, y) in board.guesses:
+            return "You already guessed that. Try again."
+        board.guesses.append((x, y))
+        if board.board[x][y] == "S":
+            board.board[x][y] = "X"
+            return "Hit!"
+        else:
+            board.board[x][y] = "O"
+            return "Miss!"
 
 
-#Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
+# Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
 def play_game(computer_board, player_board):
     while True:
         print(f"\n{player_board.name}'s Board:")
@@ -66,18 +66,18 @@ def play_game(computer_board, player_board):
             result = Board.make_guess(computer_board, x, y)
             print(result)
 
-            #Check if all ships on the computer's board have been sunk
+            # Check if all ships on the computer's board have been sunk
             if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
                 print("You sank all the ships! You win!")
                 scores["player"] += 1
                 break
 
-            #Computer makes a random guess
+            # Computer makes a random guess
             x, y = Board.random_point(player_board.size)
             result = Board.make_guess(player_board, x, y)
             print(f"Computer guessed ({x}, {y}) and it was a {result}")
 
-            #Check if all ships on the player's board have been sunk
+            # Check if all ships on the player's board have been sunk
             if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
                 print("Computer sank all your ships! You lose!")
                 scores["computer"] += 1
