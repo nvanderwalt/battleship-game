@@ -99,4 +99,15 @@ def new_game():
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
+     # Prompt the player to choose the number of ships
+    while True:
+        try:
+            num_ships = int(input("Enter the number of ships (e.g., 3 for 3 ships): "))
+            if num_ships < 1 or num_ships > size * size // 4:
+                print(f"Number of ships must be between 1 and {size * size // 4}. Please enter a valid number.")
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
 
