@@ -110,4 +110,15 @@ def new_game():
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
+    # Create boards with user-chosen size and number of ships
+    computer_board = Board(size, num_ships, "Computer", "computer")
+    player_board = Board(size, num_ships, "Player", "player")
+
+    # Populate boards with ships
+    Board.populate_board(computer_board)
+    Board.populate_board(player_board)
+
+    # Start the game with the created boards
+    play_game(computer_board, player_board)
+
 
