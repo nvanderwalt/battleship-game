@@ -37,3 +37,17 @@ class Board:
                 board.board[x][y] = "S"
                 board.ships.append((x, y))
                 break
+
+    #Processes a guess on the board at coordinates (x, y).
+    def make_guess(board, x, y):
+    if not Board.valid_coordinates(x, y, board):
+        return "Invalid coordinates. Try again."
+    if (x, y) in board.guesses:
+        return "You already guessed that. Try again."
+    board.guesses.append((x, y))
+    if board.board[x][y] == "S":
+        board.board[x][y] = "X"
+        return "Hit!"
+    else:
+        board.board[x][y] = "O"
+        return "Miss!"
