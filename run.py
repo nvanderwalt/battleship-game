@@ -82,7 +82,21 @@ def play_game(computer_board, player_board):
                 print("Computer sank all your ships! You lose!")
                 scores["computer"] += 1
                 break
-            
+
         except ValueError:
             print("Invalid input. Please enter row and column numbers separated by space.")
+
+def new_game():
+
+    # Prompt the player to choose the size of the board
+    while True:
+        try:
+            size = int(input("Please enter the size of the board (e.g., 5 for a 5x5 board): "))
+            if size < 2:
+                print("Board size must be at least 2. Please enter a valid size.")
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
 
