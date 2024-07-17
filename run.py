@@ -16,7 +16,13 @@ class Board:
         self.guesses = []
         self.ships = []
 
-#This defines a method named print that belongs to the Board class.
     def print(self):
         for row in self.board: #This is a for loop that iterates over each row in the board.
             print(" ".join(row)) #To print this string to the console, effectively printing the row with spaces between the cells for better readability.
+
+    #Function to generate random points on the board with the parameters
+    def random_point(size):
+        return randint(0, size-1), randint(0, size-1) 
+
+    def valid_coordinates(x, y, board):
+        return 0 <= x < board.size and 0 <= y < board.size
