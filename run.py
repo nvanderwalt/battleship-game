@@ -51,3 +51,12 @@ class Board:
     else:
         board.board[x][y] = "O"
         return "Miss!"
+
+
+#Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
+def play_game(computer_board, player_board):
+    while True:
+        print(f"\n{player_board.name}'s Board:")
+        player_board.print()
+        print(f"\n{computer_board.name}'s Board:")
+        computer_board.print()
