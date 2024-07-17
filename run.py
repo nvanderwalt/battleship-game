@@ -26,3 +26,14 @@ class Board:
 
     def valid_coordinates(x, y, board):
         return 0 <= x < board.size and 0 <= y < board.size
+
+
+    #Populate_board function is responsible for placing a specified number of ships (board.num_ships) randomly on the game board (board.board) without overlapping.
+    def populate_board(board):
+        for _ in range(board.num_ships):
+        while True:
+            x, y = Board.random_point(board.size)
+            if board.board[x][y] == ".":
+                board.board[x][y] = "S"
+                board.ships.append((x, y))
+                break
