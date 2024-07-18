@@ -91,11 +91,11 @@ def play_game(computer_board, player_board):
             break
 
             # Computer makes a unique random guess
-            while True:
-                x, y = Board.random_point(player_board.size)
-                if (x, y) not in computer_guesses:  # Check if the guess has already been made
-                    computer_guesses.append((x, y))  # Add the guess to the list of guesses
-                    break
+        while True:
+            x, y = Board.random_point(player_board.size)
+            if (x, y) not in computer_guesses:  # Check if the guess has already been made
+                computer_guesses.append((x, y))  # Add the guess to the list of guesses
+                break
             
             result = Board.make_guess(player_board, x, y)
             print(f"Computer guessed ({x}, {y}) and it was a {result}")
@@ -105,9 +105,6 @@ def play_game(computer_board, player_board):
                 print("\nCaptain you have no more ships! You lose!\n")
                 scores["computer"] += 1
                 break
-
-        except ValueError:
-            print("Invalid input. Please enter row and column numbers separated by space.")
 
 def new_game():
 
