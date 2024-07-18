@@ -68,7 +68,7 @@ def play_game(computer_board, player_board):
         try:
             x, y = map(int, input("Enter your guess (row and column separated by space): ").split())
             result = Board.make_guess(computer_board, x, y)
-            print(result)
+            print(f"You guessed ({x}, {y}) and it was a {result}")
 
             # Check if all ships on the computer's board have been sunk
             if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
@@ -92,7 +92,6 @@ def play_game(computer_board, player_board):
 
 def new_game():
 
-    print("Welcome to Battleships!")
     # Prompt the player to choose the size of the board
     while True:
         try:
@@ -155,8 +154,6 @@ def main():
             print("Thank you for playing!")
             break
 
+
+print("Welcome to Battleships Captain! Load the canons and set the sails! Please note that rows and columns start from 0\n")
 main()
-
-main()
-
-
