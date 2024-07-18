@@ -1,4 +1,4 @@
-from random import randint
+import random
 
 # Score tracking for player and computer
 scores = {"computer": 0, "player": 0} 
@@ -7,14 +7,14 @@ scores = {"computer": 0, "player": 0}
 # The __init__ method sets up a new game board with the specified size, number of ships and initializes it with empty guesses and ship placements.
 # IMPORTANT - Code was taken from the video of Code Institute-Project 3
 class Board:
-    def __init__(self, size, num_ships, name, type): 
+    def __init__(self, size, num_ships, name, type):
         self.size = size
-        self.board = [["." for x in range(size)] for y in range(size)]
+        self.board = [["." for _ in range(self.size)] for _ in range(self.size)]
         self.num_ships = num_ships
         self.name = name
         self.type = type
-        self.guesses = [] # List to track the player's guesses
-        self.ships = [] # List to track the position of the ships
+        self.guesses = []
+        self.ships = []
 
     def print(self):
         if self.type == "computer":
