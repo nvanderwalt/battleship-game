@@ -59,6 +59,8 @@ class Board:
 
 # Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
 def play_game(computer_board, player_board):
+    computer_guesses = [] # to track the computer's guesses
+
     while True:
         print(f"\n{player_board.name}'s Board:")
         player_board.print()
@@ -76,8 +78,13 @@ def play_game(computer_board, player_board):
                 scores["player"] += 1
                 break
 
-            # Computer makes a random guess
-            x, y = Board.random_point(player_board.size)
+            # Computer makes a unique random guess
+            while True:
+                x, y = Board.random_point(player_board.size)
+                if (x, y) not in computer_guesses:  # Check if the guess has already been made
+                    computer_guesses.append((x, y))  # Add the guess to the list of guesses
+                    break
+            
             result = Board.make_guess(player_board, x, y)
             print(f"Computer guessed ({x}, {y}) and it was a {result}")
 
@@ -151,9 +158,9 @@ def main():
                 print("Scores have been reset.")
                 new_game()
         else:
-            print("Thank you for playing!")
+            print("Thank you for playing captain! Have a nice day!")
             break
 
 
-print("Welcome to Battleships Captain! Load the canons and set the sails! Please note that rows and columns start from 0\n")
+print("Welcome to Battleships Captain! Load the canons and set the sails! \nPlease note that rows and columns start from 0\n")
 main()
