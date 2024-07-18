@@ -1,4 +1,5 @@
 import random
+from random import randint
 
 # Score tracking for player and computer
 scores = {"computer": 0, "player": 0} 
