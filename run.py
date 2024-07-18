@@ -57,7 +57,7 @@ def play_game(computer_board, player_board):
     last_player_guess = None
 
     while True:
-        print(f"\n{player_board.name}'s Board:")
+        print(f"\n{player_name}'s Board:")
         player_board.print()
         print(f"\n{computer_board.name}'s Board:")
         computer_board.print()
