@@ -17,8 +17,12 @@ class Board:
         self.ships = []
 
     def print(self):
-        for row in self.board: # This is a for loop that iterates over each row in the board.
-            print(" ".join(row)) # To print this string to the console, effectively printing the row with spaces between the cells for better readability.
+        if self.type == "computer":
+            for row in self.board: # This is a for loop that iterates over each row in the board.
+                print(" ".join(["." if cell == "S" else cell for cell in row])) # This is to hide the computer's boat from the player.
+        else:
+            for row in self.board:
+                print(" ".join(row)) # To print this string to the console, effectively printing the row with spaces between the cells for better readability.
 
     # Function to generate random points on the board with the parameters
     def random_point(size):
