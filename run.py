@@ -106,9 +106,6 @@ def play_game(computer_board, player_board):
                 scores["computer"] += 1
                 break
 
-        except ValueError:
-            print("Invalid input. Please enter row and column numbers separated by space.")
-
 def new_game():
 
     # Prompt the player to choose the size of the board
