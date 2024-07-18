@@ -1,15 +1,13 @@
 from random import randint
 
-# Score tracking 
-scores = {"computer": 0, "player": 0} 
+scores = {"computer": 0, "player": 0}
 
 
-# The __init__ method sets up a new game board with the specified size, number of ships and initializes it with empty guesses and ship placements.
-# IMPORTANT - Code was taken from the video of Code Institute-Project 3
 class Board:
-    def __init__(self, size, num_ships, name, type): 
+    def __init__(self, size, num_ships, name, type):
         self.size = size
-        self.board = [["." for x in range(size)] for y in range(size)]
+        self.board = [["." for x in range(size)]
+                      for y in range(size)]
         self.num_ships = num_ships
         self.name = name
         self.type = type
@@ -18,21 +16,19 @@ class Board:
 
     def print(self):
         if self.type == "computer":
-            for row in self.board: # This is a for loop that iterates over each row in the board.
-                print(" ".join(["." if cell == "S" else cell for cell in row])) # This is to hide the computer's boat from the player.
+            for row in self.board:
+                print(" ".join(["." if cell == "S" else cell
+                                for cell in row]))
         else:
             for row in self.board:
-                print(" ".join(row)) # To print this string to the console, effectively printing the row with spaces between the cells for better readability.
+                print(" ".join(row))
 
-    # Function to generate random points on the board with the parameters
     def random_point(size):
-        return randint(0, size-1), randint(0, size-1) 
+        return randint(0, size-1), randint(0, size-1)
 
     def valid_coordinates(x, y, board):
         return 0 <= x < board.size and 0 <= y < board.size
 
-
-    # Populate_board function is responsible for placing a specified number of ships (board.num_ships) randomly on the game board (board.board) without overlapping.
     def populate_board(board):
         for _ in range(board.num_ships):
             while True:
@@ -42,12 +38,11 @@ class Board:
                     board.ships.append((x, y))
                     break
 
-    # Processes a guess on the board at coordinates (x, y).
     def make_guess(board, x, y):
         if not Board.valid_coordinates(x, y, board):
-            return "Arrrrggg. Invalid coordinates. Please try again."
+            return "Arrrrggg. Invalid coordinates."
         if (x, y) in board.guesses:
-            return "You already guessed that captain.\nPlease try again."
+            return "You already guessed that captain."
         board.guesses.append((x, y))
         if board.board[x][y] == "S":
             board.board[x][y] = "X"
@@ -57,9 +52,8 @@ class Board:
             return "Miss!"
 
 
-# Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
 def play_game(computer_board, player_board):
-    computer_guesses = [] # to track the computer's guesses
+    computer_guesses = []
     last_player_guess = None
 
     while True:
@@ -70,9 +64,10 @@ def play_game(computer_board, player_board):
 
         while True:
             try:
-                x, y = map(int, input("Enter your guess (row and column separated by space): ").split())
+                x, y = map(int, input("Enter your guess (row and column "
+                                      "separated by space): ").split())
                 if last_player_guess == (x, y):
-                    print("You already guessed that. Please try again.")
+                    print("You already guessed that.")
                     continue
 
                 result = Board.make_guess(computer_board, x, y)
@@ -81,73 +76,75 @@ def play_game(computer_board, player_board):
                     break
                 print(result)
             except ValueError:
-                print("Invalid input. Please enter row and column numbers separated by space.")
+                print("Invalid input. Please enter row and column numbers.")
 
         print(f"\nYou guessed ({x}, {y}) and it was a {result}")
 
-        if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
+        if all(computer_board.board[x][y] != "S"
+               for x, y in computer_board.ships):
             print("\nHoooray! You sank all the ships! You win!\n")
             scores["player"] += 1
             break
 
-            # Computer makes a unique random guess
         while True:
             x, y = Board.random_point(player_board.size)
-            if (x, y) not in computer_guesses:  # Check if the guess has already been made
-                computer_guesses.append((x, y))  # Add the guess to the list of guesses
+            if (x, y) not in computer_guesses:
+                computer_guesses.append((x, y))
                 break
 
         result = Board.make_guess(player_board, x, y)
-        print(f"Computer guessed ({x}, {y}) and it was a {result}") 
+        print(f"Computer guessed ({x}, {y}) and it was a {result}")
 
-        # Check if all ships on the player's board have been sunk
-        if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
+        if all(player_board.board[x][y] != "S"
+               for x, y in player_board.ships):
             print("\nCaptain you have no more ships! You lose!\n")
             scores["computer"] += 1
-            break 
+            break
+
 
 def new_game():
+    player_name = input("Please enter your name: ")
 
-    # Prompt the player to choose the size of the board
     while True:
         try:
-            size = int(input("Please enter the size of the board (e.g., 5 for a 5x5 board): "))
+            size = int(input("Please enter the size of the board (e.g., 5 "
+                             "for a 5x5 board): "))
             if size < 2:
-                print("Board size must be at least 2. Please enter a valid size.")
+                print("Board size must be at least 2.")
             else:
                 break
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
-     # Prompt the player to choose the number of ships
     while True:
         try:
             num_ships = int(input("Enter the number of ships: "))
-            if num_ships < 1 or num_ships > size * size // 4:
-                print(f"Number of ships must be between 1 and {size * size // 4}. Please enter a valid number.")
+            max_ships = size * size // 4
+            if num_ships < 1 or num_ships > max_ships:
+                print(f"Number of ships must be between 1 and {max_ships}.")
             else:
                 break
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
-    # Create boards with user-chosen size and number of ships
     computer_board = Board(size, num_ships, "Computer", "computer")
-    player_board = Board(size, num_ships, "Player", "player")
+    player_board = Board(size, num_ships, player_name, "player")
 
-    # Populate boards with ships
     Board.populate_board(computer_board)
     Board.populate_board(player_board)
 
-    # Start the game with the created boards
     play_game(computer_board, player_board)
+
 
 def main():
     while True:
         new_game()
-        print(f"Scores:\nPlayer: {scores['player']}\nComputer: {scores['computer']}")
+        print(f"Scores:\nPlayer: {scores['player']}\n"
+              f"Computer: {scores['computer']}")
 
         while True:
-            another_game = input("Do you want to play another game? (yes/no): ").lower()
+            another_game = input("Do you want to play another game? (yes/no): "
+                                 "").lower()
             if another_game in ["yes", "no"]:
                 break
             else:
@@ -155,7 +152,8 @@ def main():
 
         if another_game == "yes":
             while True:
-                reset_scores = input("Do you want to reset the scores? (yes/no): ").lower()
+                reset_scores = input("Reset scores? (yes/no): ").lower()
+
                 if reset_scores in ["yes", "no"]:
                     break
                 else:
@@ -171,5 +169,6 @@ def main():
             break
 
 
-print("Welcome to Battleships Captain! Load the canons and set the sails! \nPlease note that rows and columns start from 0\n")
+print("Welcome to Battleships Captain! Load the canons and set the sails! \n"
+      "Please note that rows and columns start from 0\n")
 main()
