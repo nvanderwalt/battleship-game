@@ -45,16 +45,16 @@ class Board:
     # Processes a guess on the board at coordinates (x, y).
     def make_guess(board, x, y):
         if not Board.valid_coordinates(x, y, board):
-            return "Invalid coordinates. Try again."
+            return "Arrrrggg. Invalid coordinates. Try again."
         if (x, y) in board.guesses:
-            return "You already guessed that. Try again."
+            return "You already guessed that captain. Try again."
         board.guesses.append((x, y))
         if board.board[x][y] == "S":
             board.board[x][y] = "X"
-            return "Hit!"
+            return "Captain we have a HIT!"
         else:
             board.board[x][y] = "O"
-            return "Miss!"
+            return "Let's reload captain. It was a Miss!"
 
 
 # Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
@@ -72,7 +72,7 @@ def play_game(computer_board, player_board):
 
             # Check if all ships on the computer's board have been sunk
             if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
-                print("You sank all the ships! You win!")
+                print("Hoooray! You sank all the ships! You win!")
                 scores["player"] += 1
                 break
 
@@ -83,7 +83,7 @@ def play_game(computer_board, player_board):
 
             # Check if all ships on the player's board have been sunk
             if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
-                print("Computer sank all your ships! You lose!")
+                print("Captain you have no more ships! You lose!")
                 scores["computer"] += 1
                 break
 
@@ -106,7 +106,7 @@ def new_game():
      # Prompt the player to choose the number of ships
     while True:
         try:
-            num_ships = int(input("Enter the number of ships (e.g., 3 for 3 ships): "))
+            num_ships = int(input("Enter the number of ships: "))
             if num_ships < 1 or num_ships > size * size // 4:
                 print(f"Number of ships must be between 1 and {size * size // 4}. Please enter a valid number.")
             else:
@@ -125,7 +125,34 @@ def new_game():
     # Start the game with the created boards
     play_game(computer_board, player_board)
 
+def main():
+    while True:
+        new_game()
+        print(f"Scores:\nPlayer: {scores['player']}\nComputer: {scores['computer']}")
+        
+        while True:
+            another_game = input("Do you want to play another game? (yes/no): ").lower()
+            if another_game in ["yes", "no"]:
+                break
+            else:
+                print("Invalid input captain. Please enter 'yes' or 'no'.")
 
-new_game()
+        if another_game == "no":
+            while True:
+                reset_scores = input("Do you want to reset the scores? (yes/no): ").lower()
+                if reset_scores in ["yes", "no"]:
+                    break
+                else:
+                    print("Invalid input. Please enter 'yes' or 'no'.")
+
+            if reset_scores == "yes":
+                scores["computer"] = 0
+                scores["player"] = 0
+                print("Scores have been reset.")
+            
+            print("Thank you for playing!")
+            break
+
+main()
 
 
