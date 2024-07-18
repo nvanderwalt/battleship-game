@@ -91,20 +91,20 @@ def play_game(computer_board, player_board):
             break
 
             # Computer makes a unique random guess
-            while True:
-                x, y = Board.random_point(player_board.size)
-                if (x, y) not in computer_guesses:  # Check if the guess has already been made
-                    computer_guesses.append((x, y))  # Add the guess to the list of guesses
-                    break
-            
-            result = Board.make_guess(player_board, x, y)
-            print(f"Computer guessed ({x}, {y}) and it was a {result}")
-
-            # Check if all ships on the player's board have been sunk
-            if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
-                print("\nCaptain you have no more ships! You lose!\n")
-                scores["computer"] += 1
+        while True:
+            x, y = Board.random_point(player_board.size)
+            if (x, y) not in computer_guesses:  # Check if the guess has already been made
+                computer_guesses.append((x, y))  # Add the guess to the list of guesses
                 break
+
+        result = Board.make_guess(player_board, x, y)
+        print(f"Computer guessed ({x}, {y}) and it was a {result}") 
+
+        # Check if all ships on the player's board have been sunk
+        if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
+            print("\nCaptain you have no more ships! You lose!\n")
+            scores["computer"] += 1
+            break 
 
 def new_game():
 
