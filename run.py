@@ -45,16 +45,16 @@ class Board:
     # Processes a guess on the board at coordinates (x, y).
     def make_guess(board, x, y):
         if not Board.valid_coordinates(x, y, board):
-            return "Arrrrggg. Invalid coordinates. Try again."
+            return "Arrrrggg. Invalid coordinates. Please try again."
         if (x, y) in board.guesses:
-            return "You already guessed that captain. Try again."
+            return "You already guessed that captain. Please try again."
         board.guesses.append((x, y))
         if board.board[x][y] == "S":
             board.board[x][y] = "X"
-            return "Captain we have a HIT!"
+            return "HIT!!"
         else:
             board.board[x][y] = "O"
-            return "Let's reload captain. It was a Miss!"
+            return "Miss!"
 
 
 # Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
@@ -92,6 +92,7 @@ def play_game(computer_board, player_board):
 
 def new_game():
 
+    print("Welcome to Battleships!")
     # Prompt the player to choose the size of the board
     while True:
         try:
@@ -129,15 +130,15 @@ def main():
     while True:
         new_game()
         print(f"Scores:\nPlayer: {scores['player']}\nComputer: {scores['computer']}")
-        
+
         while True:
             another_game = input("Do you want to play another game? (yes/no): ").lower()
             if another_game in ["yes", "no"]:
                 break
             else:
-                print("Invalid input captain. Please enter 'yes' or 'no'.")
+                print("Invalid input. Please enter 'yes' or 'no'.")
 
-        if another_game == "no":
+        if another_game == "yes":
             while True:
                 reset_scores = input("Do you want to reset the scores? (yes/no): ").lower()
                 if reset_scores in ["yes", "no"]:
@@ -149,9 +150,12 @@ def main():
                 scores["computer"] = 0
                 scores["player"] = 0
                 print("Scores have been reset.")
-            
+                new_game()
+        else:
             print("Thank you for playing!")
             break
+
+main()
 
 main()
 
