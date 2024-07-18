@@ -47,7 +47,7 @@ class Board:
         if not Board.valid_coordinates(x, y, board):
             return "Arrrrggg. Invalid coordinates. Please try again."
         if (x, y) in board.guesses:
-            return "You already guessed that captain. Please try again."
+            return "You already guessed that captain.\nPlease try again."
         board.guesses.append((x, y))
         if board.board[x][y] == "S":
             board.board[x][y] = "X"
@@ -60,6 +60,7 @@ class Board:
 # Main game loop that controls the flow of the game between the player and the computer. While loop allows each player to make guesses until the game is over.
 def play_game(computer_board, player_board):
     computer_guesses = [] # to track the computer's guesses
+    last_player_guess = None
 
     while True:
         print(f"\n{player_board.name}'s Board:")
@@ -67,16 +68,27 @@ def play_game(computer_board, player_board):
         print(f"\n{computer_board.name}'s Board:")
         computer_board.print()
 
-        try:
-            x, y = map(int, input("Enter your guess (row and column separated by space): ").split())
-            result = Board.make_guess(computer_board, x, y)
-            print(f"You guessed ({x}, {y}) and it was a {result}")
+        while True:
+            try:
+                x, y = map(int, input("Enter your guess (row and column separated by space): ").split())
+                if last_player_guess == (x, y):
+                    print("You already guessed that. Please try again.")
+                    continue
 
-            # Check if all ships on the computer's board have been sunk
-            if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
-                print("Hoooray! You sank all the ships! You win!")
-                scores["player"] += 1
-                break
+                result = Board.make_guess(computer_board, x, y)
+                if "already guessed" not in result:
+                    last_player_guess = (x, y)
+                    break
+                print(result)
+            except ValueError:
+                print("Invalid input. Please enter row and column numbers separated by space.")
+
+        print(f"\nYou guessed ({x}, {y}) and it was a {result}")
+
+        if all(computer_board.board[x][y] != "S" for x, y in computer_board.ships):
+            print("\nHoooray! You sank all the ships! You win!\n")
+            scores["player"] += 1
+            break
 
             # Computer makes a unique random guess
             while True:
@@ -90,7 +102,7 @@ def play_game(computer_board, player_board):
 
             # Check if all ships on the player's board have been sunk
             if all(player_board.board[x][y] != "S" for x, y in player_board.ships):
-                print("Captain you have no more ships! You lose!")
+                print("\nCaptain you have no more ships! You lose!\n")
                 scores["computer"] += 1
                 break
 
