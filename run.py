@@ -103,8 +103,7 @@ def play_game(computer_board, player_board):
 
 
 def new_game():
-    player_name = input("Please enter your name: ")
-
+    
     while True:
         try:
             size = int(input("Please enter the size of the board (e.g., 5 "
@@ -163,6 +162,7 @@ def main():
                 scores["computer"] = 0
                 scores["player"] = 0
                 print("Scores have been reset.")
+                player_name = input("Please enter your name: ")
                 new_game()
         else:
             print("Thank you for playing captain! Have a nice day!")
@@ -171,4 +171,6 @@ def main():
 
 print("Welcome to Battleships Captain! Load the canons and set the sails! \n"
       "Please note that rows and columns start from 0\n")
+
+player_name = input("Please enter your name: ")
 main()
