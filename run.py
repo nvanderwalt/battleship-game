@@ -136,6 +136,8 @@ def new_game():
 
 
 def main():
+    global player_name  # To declare that player_name is global
+
     while True:
         new_game()
         print(f"Scores:\nPlayer: {scores['player']}\n"
@@ -162,8 +164,9 @@ def main():
                 scores["computer"] = 0
                 scores["player"] = 0
                 print("Scores have been reset.")
-                player_name = input("Please enter your name: ")
-                new_game()
+
+            player_name = input("Please enter your name: ")
+
         else:
             print("Thank you for playing captain! Have a nice day!")
             break
