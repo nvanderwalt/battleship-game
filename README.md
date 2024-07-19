@@ -23,6 +23,8 @@ This Python script implements a basic console-based Battleship game. The game is
 - Keeping track of scores and allowing multiple games.
 - Resetting the scores as well as requesting a new player name.
 
+  You can play a live version of the game [here]([http://your-live-game-url.com](https://a-fun-battleship-game-051fd574b5ee.herokuapp.com/)).
+
 ## How to Play
 
 1. **Start the Game**: Run the script. You will be prompted to enter your name.
@@ -112,10 +114,24 @@ This Python script implements a basic console-based Battleship game. The game is
 
 **Remaining Bugs**: No bugs remaining
 
-## Testing
+## Testing and Validation
 
-- **Validator Testing**: PEP8 Python Validator
-- **Status**: No errors were returned
+### Manual Testing
+
+I have manually tested the program by providing various wrong inputs to ensure robust input validation. The tests included:
+- Entering coordinates in incorrect formats.
+- Entering coordinates out of the board boundaries.
+- Repeating coordinate guesses.
+
+The game responded correctly to all these scenarios, prompting error messages and requesting valid inputs where necessary.
+
+### Continuous Integration (CI) Validation
+
+I have passed the code through the CI Python Linter validator, and it reported no errors. This ensures that the code adheres to Python's best practices and coding standards.
+
+### Deployment Testing
+
+I have deployed the code multiple times using Heroku. Each deployment was successful, and the application passed all tests, confirming its stability and readiness for production.
 
 ## Deployment
 
