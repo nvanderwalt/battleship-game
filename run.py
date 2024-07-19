@@ -40,7 +40,7 @@ class Board:
 
     def make_guess(board, x, y):
         if not Board.valid_coordinates(x, y, board):
-            return "Arrrrggg. Invalid coordinates."
+            return "Invalid coordinates."
         if (x, y) in board.guesses:
             return "You already guessed that captain."
         board.guesses.append((x, y))
@@ -68,6 +68,11 @@ def play_game(computer_board, player_board):
             try:
                 x, y = map(int, input("Enter your guess (row and column "
                                       "separated by space): ").split())
+                # Check if coordinates are valid                      
+                if not Board.valid_coordinates(x, y, computer_board):
+                    print("Invalid coordinates. Try again.")
+                    continue
+
                 if last_player_guess == (x, y):
                     print("You already guessed that.")
                     continue
