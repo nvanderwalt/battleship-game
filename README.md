@@ -31,9 +31,14 @@ You can play a live version of the game [here](https://a-fun-battleship-game-051
 2. **Configure Game Settings**: Specify the size of the board and the number of ships.
 3. **Play the Game**:
    - **Player's Turn**: Enter coordinates to guess the location of the computer's ships.
+    - **Ship**: `S`
+    - **Missed Shot**: `O`
+    - **Hit**: `X`
    - **Computer's Turn**: The computer will make random guesses.
 4. **Win/Loss**: The game continues until all ships on one board are sunk.
 5. **Play Again**: After a game ends, you can choose to play another game or exit. Optionally, reset scores and the name of the player.
+
+
 
 ## Features
 
@@ -42,11 +47,15 @@ You can play a live version of the game [here](https://a-fun-battleship-game-051
 - **Customizable Board Size**: Players can specify the size of the game board, allowing for different levels of difficulty and gameplay experience.
 - **Adjustable Number of Ships**: Players choose the number of ships to be placed on the board, adding variability to each game.
 
+<img src="assets/images/board setup model.png">
+
 ### 2. **Interactive Gameplay**
 
 - **Player vs. Computer**: Compete against a computer opponent with randomly generated guesses, providing a challenging experience.
 - **Real-Time Feedback**: The game provides immediate feedback on each guess, indicating whether it was a "HIT!!" or a "Miss!".
 - **Turn-Based System**: Alternates turns between the player and the computer, simulating a realistic game flow.
+
+<img src="assets/images/HitMiss gameplay.png">
 
 ### 3. **Game Status and End Conditions**
 
@@ -54,6 +63,8 @@ You can play a live version of the game [here](https://a-fun-battleship-game-051
 - **Score Tracking**: Maintains a score for both the player and the computer, with the ability to update scores based on game outcomes.
 - **Play Again Option**: After a game ends, players can choose to start a new game without restarting the script.
 - **Score Reset**: Players can opt to reset scores, allowing for a fresh start and the option to enter a new name.
+
+<img src="assets/images/reset with new player name.png">
 
 ### 4. **Randomized Ship Placement and Computer Guessing**
 
@@ -72,6 +83,8 @@ You can play a live version of the game [here](https://a-fun-battleship-game-051
 
 **Guesses Outside the Grid of the Board**:
 - **Validation**: Coordinates for guesses must be within the boundaries of the board. This means that both the row and column values must be between `0` and `size-1` (where `size` is the dimension of the square board).
+
+<img src="assets/images/input validation.png">
 
 ### 6. **Future Features**
 
@@ -132,6 +145,8 @@ The game responded correctly to all these scenarios, prompting error messages an
 
 I have passed the code through the CI Python Linter validator, and it reported no errors. This ensures that the code adheres to Python's best practices and coding standards.
 
+<img src="assets/images/Python Validator.png">
+
 ### Deployment Testing
 
 I have deployed the code multiple times using Heroku. Each deployment was successful, and the application passed all tests, confirming its stability and readiness for production.
@@ -150,5 +165,5 @@ The code was deployed using Heroku. Steps for deployment:
 
 - Code Institute for the deployment terminal.
 - Wikipedia for the details of the Battleship game.
-- Tutors at Code Institute for solving minor faults in deployment.
+- Tutors (Alan) at Code Institute for solving minor faults in deployment and on github.
 - Code Institute for providing an example of a Battleship README document.
