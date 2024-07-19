@@ -23,7 +23,7 @@ This Python script implements a basic console-based Battleship game. The game is
 - Keeping track of scores and allowing multiple games.
 - Resetting the scores as well as requesting a new player name.
 
-  You can play a live version of the game [here]([http://your-live-game-url.com](https://a-fun-battleship-game-051fd574b5ee.herokuapp.com/)).
+You can play a live version of the game [here](https://a-fun-battleship-game-051fd574b5ee.herokuapp.com/).
 
 ## How to Play
 
@@ -102,17 +102,20 @@ This Python script implements a basic console-based Battleship game. The game is
 - **Issue**: Players could make guesses outside the board's boundaries, causing errors or unexpected behavior.
 - **Fix**: Implemented coordinate validation to ensure guesses fall within the valid range of the board. If coordinates are out of bounds, an error message is displayed, and the player is prompted to enter valid coordinates.
 
-### 3. **Player Name Handling**
+### 3. **Duplicate Guesses**
+
+- **Issue**: Players could guess the same coordinates more than once, leading to repetitive prompts and incorrect game state updates.
+- **Fix**: Added checks to ensure that coordinates are only guessed once. If a player attempts to guess the same coordinates, they are informed and prompted to enter a new guess.
+
+### 4. **Player Name Handling**
 
 - **Issue**: The player’s name was not consistently managed across different parts of the game, leading to errors in score tracking and display.
 - **Fix**: Ensured that the player’s name is correctly handled and updated in the global scope, allowing for proper score tracking and personalized messages.
 
-### 4. **Computer Move After Invalid Player Move**
+### 5. **Computer Move After Invalid Player Move**
 
 - **Issue**: The computer could make its move even if the player made an invalid guess, leading to incorrect game flow and unfair advantage.
 - **Fix**: Modified the game loop to ensure the computer only makes its move after the player has provided a valid guess. This maintains a fair and accurate turn-taking system.
-
-**Remaining Bugs**: No bugs remaining
 
 ## Testing and Validation
 
@@ -149,4 +152,3 @@ The code was deployed using Heroku. Steps for deployment:
 - Wikipedia for the details of the Battleship game.
 - Tutors at Code Institute for solving minor faults in deployment.
 - Code Institute for providing an example of a Battleship README document.
-
