@@ -53,6 +53,8 @@ class Board:
 
 
 def play_game(computer_board, player_board):
+    global scores
+
     computer_guesses = []
     last_player_guess = None
 
@@ -103,6 +105,7 @@ def play_game(computer_board, player_board):
 
 
 def new_game():
+    global player_name
     
     while True:
         try:
@@ -137,6 +140,7 @@ def new_game():
 
 def main():
     global player_name  # To declare that player_name is global
+    global scores
 
     while True:
         new_game()
@@ -162,11 +166,11 @@ def main():
 
             if reset_scores == "yes":
                 scores["computer"] = 0
-                scores["player"] = 0
-                print("Scores have been reset.")
+                scores[player_name] = 0
+                print(f"Scores have been reset, {player_name}.")
 
             player_name = input("Please enter your name: ")
-
+            scores[player_name] = 0  # Initialize the player's score
         else:
             print("Thank you for playing captain! Have a nice day!")
             break
@@ -176,4 +180,5 @@ print("Welcome to Battleships Captain! Load the canons and set the sails! \n"
       "Please note that rows and columns start from 0\n")
 
 player_name = input("Please enter your name: ")
+scores[player_name] = 0  # Initialize the player's score
 main()
