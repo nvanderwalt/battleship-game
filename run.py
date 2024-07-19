@@ -157,8 +157,9 @@ def main():
     global player_name  # To declare that player_name is global
     global scores
 
-    player_name = input("Please enter your name: ")  # Ensure player_name is set
-    if player_name not in scores:
+    # Ask for player's name once at the beginning
+    if "player_name" not in globals():
+        player_name = input("Please enter your name: ")
         scores[player_name] = 0  # Initialize the player's score
 
     while True:
@@ -186,19 +187,13 @@ def main():
                 scores["computer"] = 0
                 scores[player_name] = 0
                 print(f"Scores have been reset, {player_name}.")
-
-            # Ensure player_name is set for new game
-            player_name = input("Please enter your name: ")  
-            if player_name not in scores:
-                scores[player_name] = 0  # Initialize the player's score
-
+                player_name = input("Please enter your new name: ")  # Ask for a new name only if scores are reset
+                if player_name not in scores:
+                    scores[player_name] = 0  # Initialize the player's score if new name
         else:
             print("Thank you for playing captain! Have a nice day!")
             break
 
 print("Welcome to Battleships Captain! Load the canons and set the sails! \n"
       "Please note that rows and columns start from 0\n")
-
-player_name = input("Please enter your name: ")
-scores[player_name] = 0  # Initialize the player's score
 main()
