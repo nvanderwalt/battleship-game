@@ -1,6 +1,6 @@
 from random import randint
 
-scores = {"computer": 0, "player": 0}
+scores = {"computer": 0}
 
 
 class Board:
@@ -144,8 +144,7 @@ def main():
 
     while True:
         new_game()
-        print(f"Scores:\nPlayer: {scores['player']}\n"
-              f"Computer: {scores['computer']}")
+        print(f"Scores:\n{player_name}: {scores[player_name]}\nComputer: {scores['computer']}")
 
         while True:
             another_game = input("Do you want to play another game? (yes/no): "
@@ -170,7 +169,9 @@ def main():
                 print(f"Scores have been reset, {player_name}.")
 
             player_name = input("Please enter your name: ")
-            scores[player_name] = 0  # Initialize the player's score
+            if player_name not in scores:
+                scores[player_name] = 0  # Initialize the player's score
+
         else:
             print("Thank you for playing captain! Have a nice day!")
             break
