@@ -1,8 +1,9 @@
 from random import randint
 
+# Dictionary to keep track of scores
 scores = {"computer": 0}
 
-
+#Initializes the board with given size, number of ships, name, and type (computer or player).
 class Board:
     def __init__(self, size, num_ships, name, type):
         self.size = size
@@ -14,6 +15,7 @@ class Board:
         self.guesses = []
         self.ships = []
 
+    #Prints the board. For the computer's board, ships are hidden.
     def print(self):
         if self.type == "computer":
             for row in self.board:
@@ -23,6 +25,7 @@ class Board:
             for row in self.board:
                 print(" ".join(row))
 
+    #Generates a random point within the board.
     def random_point(size):
         return randint(0, size-1), randint(0, size-1)
 
@@ -37,7 +40,9 @@ class Board:
                     board.board[x][y] = "S"
                     board.ships.append((x, y))
                     break
-
+        
+    #Processes a guess on the board at coordinates (x, y).
+    #Returns a message indicating if it was a hit, miss, or an invalid guess.
     def make_guess(board, x, y):
         if not Board.valid_coordinates(x, y, board):
             return "Invalid coordinates."
@@ -51,7 +56,7 @@ class Board:
             board.board[x][y] = "O"
             return "Miss!"
 
-
+#Main game loop where the player and computer take turns to guess the location of ships.
 def play_game(computer_board, player_board):
     global scores
 
@@ -87,12 +92,14 @@ def play_game(computer_board, player_board):
 
         print(f"\nYou guessed ({x}, {y}) and it was a {result}")
 
+        # Check if all ships on the computer's board have been sunk
         if all(computer_board.board[x][y] != "S"
                for x, y in computer_board.ships):
             print("\nHoooray! You sank all the ships! You win!\n")
             scores["player"] += 1
             break
-
+        
+        # Computer's turn
         while True:
             x, y = Board.random_point(player_board.size)
             if (x, y) not in computer_guesses:
@@ -102,13 +109,14 @@ def play_game(computer_board, player_board):
         result = Board.make_guess(player_board, x, y)
         print(f"Computer guessed ({x}, {y}) and it was a {result}")
 
+        # Check if all ships on the player's board have been sunk
         if all(player_board.board[x][y] != "S"
                for x, y in player_board.ships):
             print("\nCaptain you have no more ships! You lose!\n")
             scores["computer"] += 1
             break
 
-
+# Sets up a new game by initializing the boards for the player and the computer.
 def new_game():
     global player_name
     
@@ -134,18 +142,24 @@ def new_game():
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
+    # Initialize boards for player and computer  
     computer_board = Board(size, num_ships, "Computer", "computer")
     player_board = Board(size, num_ships, player_name, "player")
 
+    # Populate boards with ships
     Board.populate_board(computer_board)
     Board.populate_board(player_board)
 
     play_game(computer_board, player_board)
 
-
+# Main loop to start and manage the game, including handling multiple game sessions and resetting scores.
 def main():
     global player_name  # To declare that player_name is global
     global scores
+
+    player_name = input("Please enter your name: ")  # Ensure player_name is set
+    if player_name not in scores:
+        scores[player_name] = 0  # Initialize the player's score
 
     while True:
         new_game()
@@ -173,14 +187,14 @@ def main():
                 scores[player_name] = 0
                 print(f"Scores have been reset, {player_name}.")
 
-            player_name = input("Please enter your name: ")
+            # Ensure player_name is set for new game
+            player_name = input("Please enter your name: ")  
             if player_name not in scores:
                 scores[player_name] = 0  # Initialize the player's score
 
         else:
             print("Thank you for playing captain! Have a nice day!")
             break
-
 
 print("Welcome to Battleships Captain! Load the canons and set the sails! \n"
       "Please note that rows and columns start from 0\n")
